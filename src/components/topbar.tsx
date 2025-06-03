@@ -83,7 +83,7 @@ const navigationItems: NavigationItem[] = [
         children: [
             {
                 title: "Base加密解密",
-                href: "/",
+                href: "/encoder/base64",
                 description: "Base加密解密指的是基于Base编码规则的加密和解密操作。 ",
                 icon: <HomeIcon size={16} />,
             },
