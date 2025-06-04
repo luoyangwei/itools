@@ -1,18 +1,21 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import Base64 from "base-64";
 
 export default function EncoderBase64Page() {
     const [originalContent, setOriginalContent] = useState<string>("");
     const [encodedContent, setEncodedContent] = useState<string>("");
 
     const encoder = (str: string) => {
-        return Base64.encode(str);
+        try {
+            return Buffer.from(str).toString("base64")
+        } catch (e) {
+            return "";
+        }
     }
 
     useEffect(() => {
-        setEncodedContent(originalContent)
+        setEncodedContent(encoder(originalContent))
     }, [originalContent])
 
     return (
@@ -33,10 +36,11 @@ export default function EncoderBase64Page() {
                 </div>
                 <div className="flex-1 h-full bg-accent rounded-2xl min-h-56 p-4">
                     <textarea
-                        value={encoder(encodedContent)}
+                        value={encodedContent}
                         onChange={(e) => setEncodedContent(e.target.value)}
                         placeholder="结果"
-                        className="outline-hidden w-full h-full min-h-52" />
+                        disabled
+                        className="outline-hidden w-full h-full min-h-52 cursor-not-allowed" />
                 </div>
             </div>
         </>
